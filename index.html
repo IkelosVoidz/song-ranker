@@ -1,0 +1,125 @@
+<script type="text/javascript" language="javascript" src="app.js"></script>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+
+    <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+    <title>Song Ranker</title>
+  </head>
+
+  <body text="#000000" link="#e097d9" vlink="#e097d9" alink="#79a2c9">
+    <div style="display: flex; justify-content: center">
+      <img
+        src="img/title.png"
+        width="300"
+        style="margin-top: 50; margin-right: 7"
+      />
+    </div>
+    <div style="display: flex; justify-content: center">
+      <h4 style="margin-top: 10">BIAS SORTER</h4>
+    </div>
+
+    <p class="instructions">
+    </p>
+
+    <div id="battleNumber" style="padding-bottom: 10px; text-align: center">
+      <b>
+        BATTLE #1
+        <br />
+        0% SORTED
+      </b>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <table id="mainTable">
+        <tbody>
+          <tr>
+            <td
+              id="leftField"
+              onclick="if(finishFlag==0) sortList(-1);"
+              rowspan="2"
+              style="
+                text-align: center;
+                padding: 5px;
+                max-width: 200px;
+                word-wrap: break-word;
+                background-color: rgba(255, 255, 255, 0.3);
+              "
+            ></td>
+            <td
+              class="middleField"
+              onclick="if(finishFlag==0) sortList(0);"
+              rowspan="2"
+              style="
+                text-align: center;
+                padding: 5px;
+                word-wrap: break-word;
+                width: 40px;
+                background-color: rgba(255, 255, 255, 0.3);
+              "
+            >
+              =
+            </td>
+            <td
+              id="rightField"
+              onclick="if(finishFlag==0) sortList(1);"
+              rowspan="2"
+              style="
+                text-align: center;
+                max-width: 200px;
+                background-color: rgba(255, 255, 255, 0.3);
+              "
+            ></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display: flex; justify-content: center">
+      <button id="undoButton" onclick="undoLastAction()" style="margin-top: 10px">Undo</button>
+    </div>
+
+    <br /><br />
+
+    <div id="resultField" style="text-align: center">
+      <br />
+    </div>
+
+    <script type="text/javascript">
+      loadConfig();
+    </script>
+    <p class="other">
+      <div style="display: flex; justify-content: center">
+        <button
+          id="restartButton"
+          onclick="restartQuestion()"
+          style="margin-top: 10px"
+        >
+          Restart
+        </button>
+      </div>
+      <div id="restartPrompt" style="display: none">
+        <div>
+          <h3 style="text-align: center">ARE YOU SURE YOU WANT TO RESTART?</h3>
+          <div style="display: flex; justify-content: center">
+            <button onclick="ohOkNvm()">NO I HIT THIS BY ACCIDENT</button>
+          </div>
+          <br /><br />
+          <div style="display: flex; justify-content: center">
+            <button onclick="restart()">Yes I want to restart</button>
+          </div>
+        </div>
+      </div>
+      <center>
+        <small>
+         <a
+            href="http://biasorter.tumblr.com/"
+            >built on top of biasorter</a
+          >.
+        </small>
+      </center>
+    </p>
+  </body>
+</html>

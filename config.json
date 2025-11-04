@@ -1,0 +1,21 @@
+{
+  "title": "My Song Ranker",
+  "description": "Click your favorite song in each battle to get a ranked list of all songs!",
+  "headerImage": "img/header.png",
+  "background": {
+    "type": "gradient",
+    "gradientStart": "#667eea",
+    "gradientEnd": "#764ba2"
+  },
+  "theme": "dark",
+  "songs": [
+    { "name": "Song Name 1", "image": "img/album1.png" },
+    { "name": "Song Name 2", "image": "img/album1.png" },
+    { "name": "Song Name 3", "image": "img/album2.png" },
+    { "name": "Song Name 4", "image": "img/album2.png" },
+    { "name": "Song Name 5", "image": "img/album3.png" },
+    { "name": "Song Name 6", "image": "img/album3.png" },
+    { "name": "Song Name 7", "image": "img/album4.png" },
+    { "name": "Song Name 8", "image": "img/album4.png" }
+  ]
+}
