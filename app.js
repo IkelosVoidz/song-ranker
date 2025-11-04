@@ -16,8 +16,19 @@ var numQuestion;
 var totalSize;
 var finishSize;
 var finishFlag;
+var totalBattles;
 
 var prevStates = [];
+
+// Shuffle helper (Fisher-Yates)
+function shuffleArray(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = array[i];
+    array[i] = array[j];
+    array[j] = tmp;
+  }
+}
 
 // Load configuration from JSON
 async function loadConfig() {
@@ -205,15 +216,21 @@ function initList() {
   var n = 0;
   var mid;
   var i;
+  // Build a shuffled list of indices so the battles start in a random order
+  var indices = new Array(namMember.length);
+  for (i = 0; i < namMember.length; i++) indices[i] = i;
+  shuffleArray(indices);
   lstMember[n] = new Array();
   for (i = 0; i < namMember.length; i++) {
-    lstMember[n][i] = i;
+    lstMember[n][i] = indices[i];
   }
   parent[n] = -1;
   totalSize = 0;
+  var splits = 0; // count how many splits (merges) will happen
   n++;
   for (i = 0; i < lstMember.length; i++) {
     if (lstMember[i].length >= 2) {
+      splits++;
       mid = Math.ceil(lstMember[i].length / 2);
       lstMember[n] = new Array();
       lstMember[n] = lstMember[i].slice(0, mid);
@@ -227,6 +244,9 @@ function initList() {
       n++;
     }
   }
+  // Total battles is totalSize minus the number of splits (each split corresponds to one merge operation where
+  // the maximum number of comparisons is (a+b-1)). This yields the number of pairwise battles the UI will present.
+  totalBattles = Math.max(0, totalSize - splits);
   for (i = 0; i < namMember.length; i++) {
     rec[i] = 0;
   }
@@ -326,7 +346,15 @@ function sortList(flag) {
     }
   }
   if (cmp1 < 0) {
-    str = 'battle #' + (numQuestion - 1) + '<br>' + Math.floor((finishSize * 100) / totalSize) + '% sorted.';
+    var completed = Math.max(0, numQuestion - 1);
+    str =
+      'battle #' +
+      completed +
+      '/' +
+      (totalBattles || 0) +
+      '<br>' +
+      Math.floor((finishSize * 100) / totalSize) +
+      '% sorted.';
     document.getElementById('battleNumber').innerHTML = str;
     showResult();
     finishFlag = 1;
@@ -581,7 +609,14 @@ function updateRankNumbers() {
 
 function showImage(undo) {
   if (!undo) numQuestion++;
-  var str0 = 'BATTLE #' + numQuestion + '<br>' + Math.floor((finishSize * 100) / totalSize) + '% SORTED';
+  var str0 =
+    'BATTLE #' +
+    numQuestion +
+    '/' +
+    (totalBattles || 0) +
+    '<br>' +
+    Math.floor((finishSize * 100) / totalSize) +
+    '% SORTED';
   var str1 = '' + toNameFace(lstMember[cmp1][head1]);
   var str2 = '' + toNameFace(lstMember[cmp2][head2]);
   var img1 = metadata[str1]?.image;
