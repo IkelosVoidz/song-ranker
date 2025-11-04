@@ -1,21 +1,27 @@
 {
-  "title": "My Song Ranker",
-  "description": "Click your favorite song in each battle to get a ranked list of all songs!",
-  "headerImage": "img/header.png",
+  "title": "BREACH: Song Ranker",
+  "description": "Pick which song you prefer in each matchup to get a ranked list of songs from BREACH by Twenty One Pilots <br> <br> NOTE: Selecting = Too many times may affect the accuracy of the final ranking",
+  "headerImage": "img/title.png",
   "background": {
     "type": "gradient",
-    "gradientStart": "#667eea",
-    "gradientEnd": "#764ba2"
+    "gradientStart": "#cc0033",
+    "gradientEnd": "#000000"
   },
   "theme": "dark",
   "songs": [
-    { "name": "Song Name 1", "image": "img/album1.png" },
-    { "name": "Song Name 2", "image": "img/album1.png" },
-    { "name": "Song Name 3", "image": "img/album2.png" },
-    { "name": "Song Name 4", "image": "img/album2.png" },
-    { "name": "Song Name 5", "image": "img/album3.png" },
-    { "name": "Song Name 6", "image": "img/album3.png" },
-    { "name": "Song Name 7", "image": "img/album4.png" },
-    { "name": "Song Name 8", "image": "img/album4.png" }
+    { "name": "City Walls", "image": "img/breach.png" },
+    { "name": "RAWFEAR", "image": "img/breach.png" },
+    { "name": "Drum Show", "image": "img/breach.png" },
+    { "name": "Garbage", "image": "img/breach.png" },
+    { "name": "The Contract", "image": "img/breach.png" },
+    { "name": "Downstairs", "image": "img/breach.png" },
+    { "name": "Robot Voices", "image": "img/breach.png" },
+    { "name": "Center Mass", "image": "img/breach.png" },
+    { "name": "Cottonwood", "image": "img/breach.png" },
+    { "name": "One Way", "image": "img/breach.png" },
+    { "name": "Days Lie Dormant", "image": "img/breach.png" },
+    { "name": "Tally", "image": "img/breach.png" },
+    { "name": "Intentions", "image": "img/breach.png" },
+    { "name": "Drag Path", "image": "img/breach.png" }
   ]
 }
