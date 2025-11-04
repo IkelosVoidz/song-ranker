@@ -415,6 +415,9 @@ function enableDragAndDrop() {
   let dropIndicator = null;
   let touchStartY = 0;
   let touchCurrentY = 0;
+  let touchStartTime = 0;
+  let isDragging = false;
+  let dragTimeout = null;
 
   rows.forEach((row) => {
     // Desktop drag and drop
@@ -470,18 +473,32 @@ function enableDragAndDrop() {
       updateRankNumbers();
     });
 
-    // Mobile touch events
+    // Mobile touch events with delay
     row.addEventListener('touchstart', function (e) {
-      draggedRow = this;
+      const currentRow = this;
       touchStartY = e.touches[0].clientY;
-      this.classList.add('dragging');
+      touchStartTime = Date.now();
+      isDragging = false;
 
-      // Prevent scrolling while dragging
-      document.body.style.overflow = 'hidden';
+      // Wait 300ms before enabling drag mode
+      dragTimeout = setTimeout(() => {
+        isDragging = true;
+        draggedRow = currentRow;
+        currentRow.classList.add('dragging');
+        // Prevent scrolling while dragging
+        document.body.style.overflow = 'hidden';
+      }, 300);
     });
 
     row.addEventListener('touchmove', function (e) {
-      if (!draggedRow) return;
+      // If user moves quickly, cancel the drag timeout (allow scrolling)
+      const moveDistance = Math.abs(e.touches[0].clientY - touchStartY);
+      if (!isDragging && moveDistance > 10) {
+        clearTimeout(dragTimeout);
+        return;
+      }
+
+      if (!isDragging || !draggedRow) return;
 
       e.preventDefault(); // Prevent scrolling
       touchCurrentY = e.touches[0].clientY;
@@ -517,7 +534,15 @@ function enableDragAndDrop() {
     });
 
     row.addEventListener('touchend', function (e) {
-      if (!draggedRow) return;
+      // Clear the timeout if touch ends before drag activates
+      clearTimeout(dragTimeout);
+
+      if (!isDragging || !draggedRow) {
+        // Re-enable scrolling just in case
+        document.body.style.overflow = '';
+        isDragging = false;
+        return;
+      }
 
       // Reset transform
       draggedRow.style.transform = '';
@@ -539,6 +564,7 @@ function enableDragAndDrop() {
 
       updateRankNumbers();
       draggedRow = null;
+      isDragging = false;
     });
   });
 }
